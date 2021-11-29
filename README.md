@@ -2,7 +2,7 @@
 
 """Simple Django Rest API created using REST framework"""
 
-* This API can request for following methods:
+* This API can request using following methods:
   1) GET
   2) POST
   3) PUT
