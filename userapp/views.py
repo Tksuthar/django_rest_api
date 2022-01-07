@@ -1,10 +1,16 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.http import JsonResponse
 from rest_framework import status
 from .serializers import UserSerializer
 from .models import UserModel
+
+
+def index(request):
+    return HttpResponse("Welcome!")
+
 
 class UserList(APIView):
     def get(self, request, pk=None, format=None):
