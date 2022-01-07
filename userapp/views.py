@@ -9,14 +9,19 @@ from .models import UserModel
 #
 class UserList(APIView):
     def get(self, request, pk=None, format=None):
-        users = UserModel.objects.all()
-        query = self.request.GET.get('search')
+        if pk is None:
+            users = UserModel.objects.all()
+            query = self.request.GET.get('search')
 
-        if query is not None:
-            users = users.filter(user_lname=query) | users.filter(user_fname=query)
-        serializer = UserSerializer(users, many=True)
-        return Response(serializer.data)
-
+            if query is not None:
+                users = users.filter(user_lname=query) | users.filter(user_fname=query)
+            serializer = UserSerializer(users, many=True)
+            return Response(serializer.data)
+        else:
+            user = UserModel.objects.get(pk=pk)
+            serializer = UserSerializer(user)
+            return Response(serializer.data)
+        
     def post(self, request, pk, format=None):
         serializer = UserSerializer(data=request.data)
 
