@@ -19,7 +19,6 @@ from userapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name="index"),
     path('users/', views.UserList.as_view()),
     path('users/<int:pk>', views.UserList.as_view()),
 ]
