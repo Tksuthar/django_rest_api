@@ -6,7 +6,6 @@ from rest_framework import status
 from .serializers import UserSerializer
 from .models import UserModel
 
-#
 class UserList(APIView):
     def get(self, request, pk=None, format=None):
         if pk is None:
@@ -17,12 +16,13 @@ class UserList(APIView):
                 users = users.filter(user_lname=query) | users.filter(user_fname=query)
             serializer = UserSerializer(users, many=True)
             return Response(serializer.data)
-        else:
-            user = UserModel.objects.get(pk=pk)
-            serializer = UserSerializer(user)
-            return Response(serializer.data)
-        
-    def post(self, request, pk, format=None):
+
+        user = UserModel.objects.get(pk=pk)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
+
+    def post(self, request, pk=None, format=None):
         serializer = UserSerializer(data=request.data)
 
         if serializer.is_valid():
@@ -38,7 +38,7 @@ class UserList(APIView):
 
         if serializer.is_valid():
             serializer.save()
-            return Response({'msg': 'Data updated'})
+            return Response({'msg': 'Complete Data updated'})
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def patch(self, request, pk, format=None):
