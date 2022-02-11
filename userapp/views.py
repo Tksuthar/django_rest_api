@@ -7,7 +7,10 @@ from .serializers import UserSerializer
 from .models import UserModel
 
 def index(request):
-    return HttpResponse("Welcome!")
+    response = HttpResponse()
+    response["File-name"] = "index.html"
+    response["Content"] = "Welcome!"
+    return response
 
 class UserList(APIView):
     def get(self, request, pk=None, format=None):
